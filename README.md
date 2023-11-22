@@ -93,10 +93,11 @@
 
 | BRP-NAS: Prediction-based NAS using GCNs                     | NeurIPS（2020） | 一种基于图卷积网络（GCN）的端到端延迟预测器                  | 使用4层GCN，每层有600个隐藏单元，后面是一个完全连接的层，它生成延迟的标量预测。GCN的输入神经网络模型由邻接矩阵A（不对称，因为计算流被表示为有向图）和特征矩阵X（独热编码）编码。我们还引入了一个全局节点（连接到所有其他节点的节点），通过聚合所有节点级信息来捕获神经架构的图嵌入。GCN可以处理任何一组神经网络模型[郑宁新/BRP-NAS (github.com)](https://github.com/zheng-ningxin/brp-nas#Device-measurement) |
 | ------------------------------------------------------------ | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| A Generic Graph-Based Neural Architecture Encoding Scheme for Predictor-Based NAS | ECCV(2020)      | 提出了GATES，一个基于图的神经架构编码器GATES显着提高了架构性能预测 | GATES模型的操作是传播信息的转换                              |
 | Bridge the Gap Between Architecture Spaces via A<br/>Cross-Domain Predictor | NeurIPS（2022） | 出了一个跨域预测器（CDP），使用了GCN预测性能                 | 提出了一个渐进的子空间自适应策略，以解决源架构空间和目标空间之间的域差异。考虑到两种建筑空间差异较大，设计了一个辅助空间，使转换过程更加顺畅。 |
-| RATS-NAS: REDIRECTION OF ADJACENT TRAILS ON GCN FOR NEURAL<br/>ARCHITECTURE SEARCH | CVPR（2023）    | 提出了一种称为RATs-GCN的预测器，它结合了GCN和MLP的优点       |                                                              |
-| SurgeNAS: A Comprehensive Surgery on<br/>Hardware-Aware Differentiable Neural<br/>Architecture Search | TC(2023)        | 提出了一个高效的基于图神经网络（GNNs）的预测器               | 通过引入了一个有效的基于图神经网络（GNNs）的延迟预测器，将GNN进一步纳入到SurgeNAS实现延迟感知架构搜索以提高准确性。 |
-| A Generic Graph-Based Neural Architecture<br/>Encoding Scheme With Multifaceted Information | TPAMI（2023）   | 提出了一种通用的编码方案：基于图的神经架构编码方案（GATES）,预测器使用的是排名损失 |                                                              |
+| COBRA: ENHANCING DNN LATENCY PREDICTION<br/>WITH LANGUAGE MODELS TRAINED ON SOURCE<br/>CODE | ICLR(2022)      | 基于源代码的图神经网络延迟预测                               | 基于源代码的延迟预测利用一个Transformer编码器来学习短代码段的表示,表示由图卷积网络（GCN）聚合，该图卷积网络捕获算法依赖性并估计所实现的DNN的延迟. |
+|                                                              |                 |                                                              |                                                              |
+|                                                              |                 |                                                              |                                                              |
 
 (3).基于kernels的方法
 
@@ -112,7 +113,15 @@
 |                                                              |                 |                                        |                                                              |
 |                                                              |                 |                                        |                                                              |
 
-（5）基于回归模型的方法
+（5）基于Transformer的方法
+
+| NAR-Former: Neural Architecture Representation Learning towards Holistic<br/>Attributes Prediction | CVPR(2023) | 通过Transformer架构和自注意力机制，实现对神经网络全面属性的预测 | 提出了一个有效的神经架构表示学习框架，该框架由线性缩放网络编码器，基于transformers的表示学习模型，以及一个有效的模型训练方法与数据增强和辅助损失函数组成。 |
+| ------------------------------------------------------------ | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|                                                              |            |                                                              |                                                              |
+
+
+
+（6）基于回归模型的方法
 
 |                                                              |               |                                                              |                                                              |
 | ------------------------------------------------------------ | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
