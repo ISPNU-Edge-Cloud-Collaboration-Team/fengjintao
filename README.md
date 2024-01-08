@@ -288,7 +288,7 @@ optimizer = torch.optim.SGD(net.parameters(), lr=lr,weight_decay=3e-5,momentum=0
 
 4.精度的提升
 
-5.预测的计算开销
+5.预测的计算开销、计算资源小、轻量级模型
 
 
 
