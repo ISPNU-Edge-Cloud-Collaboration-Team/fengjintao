@@ -80,12 +80,12 @@
 
 **2023.11.23**
 
-  (1)基于查找表的方法
+ (1)基于查找表的方法
 
-| FBNet: Hardware-Aware Efficient ConvNet Design<br/>via Differentiable Neural Architecture Search | CVPR(2019) | 使用一个延迟查找表模型来估计网络的整体延迟 | 通过对搜索空间中使用的几百个运算符的延迟进行基准测试，我们可以很容易地估计整个搜索空间中1架构的实际运行时间(使用逐层预测器，其通过对模型中的每个操作单独测量的延迟求和来导出延迟) |
+| FBNet: Hardware-Aware Efficient ConvNet Design via Differentiable Neural Architecture Search | CVPR(2019) | 使用一个延迟查找表模型来估计网络的整体延迟 | 通过对搜索空间中使用的几百个运算符的延迟进行基准测试，我们可以很容易地估计整个搜索空间中1架构的实际运行时间(使用逐层预测器，其通过对模型中的每个操作单独测量的延迟求和来导出延迟) |
 | ------------------------------------------------------------ | ---------- | ------------------------------------------ | ------------------------------------------------------------ |
 | MnasNet: Platform-Aware Neural Architecture Search for Mobile | CVPR(2019) | 通过在边缘设备上直接执行模型测量延迟       | 我们引入了一种多目标神经架构搜索方法，该方法优化了移动的设备上的准确性和真实世界的延迟。 |
-| ChamNet: Towards Efﬁcient Network Design through Platform-Aware Model<br/>Adaptation | CVPR(2019) | 为目标设备构建一个LUT，实现快速延迟估计    | LUT由延迟数据库支持，在数据库中有不同输入维度的真实操作延迟（构建一个延迟查找表） |
+| ChamNet: Towards Efﬁcient Network Design through Platform-Aware Model Adaptation | CVPR(2019) | 为目标设备构建一个LUT，实现快速延迟估计    | LUT由延迟数据库支持，在数据库中有不同输入维度的真实操作延迟（构建一个延迟查找表） |
 | ONCE-FOR-ALL: TRAIN ONE NETWORK AND SPECIALIZE IT FOR EFFICENT DEPLOYMENT | ICLR(2019) | 构建一个查找表预测延迟                     |                                                              |
 |                                                              |            |                                            |                                                              |
 
@@ -95,28 +95,28 @@
 | ------------------------------------------------------------ | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | A Generic Graph-Based Neural Architecture Encoding Scheme for Predictor-Based NAS | ECCV(2020)      | 提出了GATES，一个基于图的神经架构编码器GATES显着提高了架构性能预测 | GATES模型的操作是传播信息的转换                              |
 |                                                              |                 |                                                              |                                                              |
-| Bridge the Gap Between Architecture Spaces via A<br/>Cross-Domain Predictor | NeurIPS（2022） | 出了一个跨域预测器（CDP），使用了GCN预测性能                 | 提出了一个渐进的子空间自适应策略，以解决源架构空间和目标空间之间的域差异。考虑到两种建筑空间差异较大，设计了一个辅助空间，使转换过程更加顺畅。 |
-| COBRA: ENHANCING DNN LATENCY PREDICTION<br/>WITH LANGUAGE MODELS TRAINED ON SOURCE<br/>CODE | ICLR(2022)      | 基于源代码的图神经网络延迟预测                               | 基于源代码的延迟预测利用一个Transformer编码器来学习短代码段的表示,表示由图卷积网络（GCN）聚合，该图卷积网络捕获算法依赖性并估计所实现的DNN的延迟. |
+| Bridge the Gap Between Architecture Spaces via A Cross-Domain Predictor | NeurIPS（2022） | 出了一个跨域预测器（CDP），使用了GCN预测性能                 | 提出了一个渐进的子空间自适应策略，以解决源架构空间和目标空间之间的域差异。考虑到两种建筑空间差异较大，设计了一个辅助空间，使转换过程更加顺畅。 |
+| COBRA: ENHANCING DNN LATENCY PREDICTION WITH LANGUAGE MODELS TRAINED ON SOURCE CODE | ICLR(2022)      | 基于源代码的图神经网络延迟预测                               | 基于源代码的延迟预测利用一个Transformer编码器来学习短代码段的表示,表示由图卷积网络（GCN）聚合，该图卷积网络捕获算法依赖性并估计所实现的DNN的延迟. |
 |                                                              |                 |                                                              |                                                              |
 |                                                              |                 |                                                              |                                                              |
 
 (3).基于kernels的方法
 
-| nn-Meter: Towards Accurate Latency Prediction of<br/>Deep-Learning Model Inference on Diverse Edge Devices | MobiSys（2021） | 准确预测DNN模型在不同边缘设备上的推理延迟                    | nn-Meter的关键思想是将整个模型推理划分为内核，即，设备上的执行单元，并进行内核级预测。nn-Meter基于两个关键技术构建：（i）内核检测，通过一组设计良好的测试用例自动检测模型推理的执行单元;以及（ii）自适应采样，以从大空间中有效地采样最有益的配置，从而构建准确的内核级等待时间预测器。 |
+| nn-Meter: Towards Accurate Latency Prediction of Deep-Learning Model Inference on Diverse Edge Devices | MobiSys（2021） | 准确预测DNN模型在不同边缘设备上的推理延迟                    | nn-Meter的关键思想是将整个模型推理划分为内核，即，设备上的执行单元，并进行内核级预测。nn-Meter基于两个关键技术构建：（i）内核检测，通过一组设计良好的测试用例自动检测模型推理的执行单元;以及（ii）自适应采样，以从大空间中有效地采样最有益的配置，从而构建准确的内核级等待时间预测器。 |
 | ------------------------------------------------------------ | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | nnPerf: A Real-time On-device Tool Profiling DNN Inference on Mobile Platforms | SenSys （2023） | 实时的设备上分析器，旨在收集和分析移动平台上的DNN模型运行时推理延迟 |                                                              |
-|                                                              |                 |                                                              |                                                              |
+| NN-Stretch: Automatic Neural Network Branching for Parallel<br/>Inference on Heterogeneous Multi-Processors | MobiSys（2023） | 提出一种新的模型自适应策略适应异构处理器，使用了nn-meter延迟预测器 |                                                              |
 
 （4）基于元学习的方法
 
-| HELP: Hardware-Adaptive Efﬁcient Latency<br/>Prediction for NAS via Meta-Learning | NeurIPS（2021） | 提出了硬件自适应有效延迟预测器（HELP） | 将延迟预测问题形式化为一个few-shot回归任务，即给定一个架构-设备对，估计其延迟，利用每个设备上参考架构的延迟作为参考，提出了一个元学习框架，将经验元学习与基于梯度的元学习相结合，以学习跨多个设备泛化的延迟预测模型。 |
+| HELP: Hardware-Adaptive Efﬁcient Latency Prediction for NAS via Meta-Learning | NeurIPS（2021） | 提出了硬件自适应有效延迟预测器（HELP） | 将延迟预测问题形式化为一个few-shot回归任务，即给定一个架构-设备对，估计其延迟，利用每个设备上参考架构的延迟作为参考，提出了一个元学习框架，将经验元学习与基于梯度的元学习相结合，以学习跨多个设备泛化的延迟预测模型。 |
 | ------------------------------------------------------------ | --------------- | -------------------------------------- | ------------------------------------------------------------ |
 |                                                              |                 |                                        |                                                              |
 |                                                              |                 |                                        |                                                              |
 
 （5）基于Transformer的方法
 
-| NAR-Former: Neural Architecture Representation Learning towards Holistic<br/>Attributes Prediction | CVPR(2023) | 通过Transformer架构和自注意力机制，实现对神经网络全面属性的预测 | 提出了一个有效的神经架构表示学习框架，该框架由线性缩放网络编码器，基于transformers的表示学习模型，以及一个有效的模型训练方法与数据增强和辅助损失函数组成。 |
+| NAR-Former: Neural Architecture Representation Learning towards Holistic Attributes Prediction | CVPR(2023) | 通过Transformer架构和自注意力机制，实现对神经网络全面属性的预测 | 提出了一个有效的神经架构表示学习框架，该框架由线性缩放网络编码器，基于transformers的表示学习模型，以及一个有效的模型训练方法与数据增强和辅助损失函数组成。 |
 | ------------------------------------------------------------ | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 |                                                              |            |                                                              |                                                              |
 
@@ -124,14 +124,25 @@
 
 （6）基于回归模型的方法
 
-|                                                              |               |                                                              |                                                              |
-| ------------------------------------------------------------ | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| FOX-NAS: Fast, On-device and Explainable Neural Architecture Search | ICCV(2021)    | 采用多变量回归分析作为预测器，比深度学习方法减少了时间和数据 | 采用多元回归来生成性能预测因子,与基于深度学习的方法相比，多元回归分析可以更好地理解每个变量对结果的影响，并以更少的数据创建有希望的预测器 |
-|                                                              |               |                                                              |                                                              |
-| MAPLE: Microprocessor A Priori for Latency Estimation        | CVPR（2022）  | 微处理器先验延迟估计（MAPLE）                                | 提出了一个延迟预测技术，采用了一个紧凑的基于神经网络的非线性回归模型的延迟推理，通过测量10个关键性能指标，包括缓存效率，计算速率和指令数等来表示目标硬件。回归模型是硬件感知和DNN架构感知的，因为它接受硬件描述符和DNN架构编码作为输入。 |
-| MAPLE-Edge: A Runtime Latency Predictor for Edge Devices     | CVPR(2022)    | MAPLE针对嵌入式设备的改进版，提出了一种新的使用LPM算法优化边缘运行时间的延迟估计器。 | MAPLE-Edge是一种基于硬件回归模型的LPM方法，可以准确估计深度神经网络架构在看不见的嵌入式目标设备上的推理延迟。精度优于MAPLE和HELP |
-| CoDL: Efficient CPU-GPU Co-execution for Deep Learning<br/>Inference on Mobile Devices | MobiSys(2022) | 提出轻量但精确的非线性和并发感知延迟预测。（在cpu和gpu上的精度分别为83.21%和82.69%） | 考虑cpu与gpu协同计算的数据共享开销，考虑由平台特征引起的非线性延迟响应，以数据大小和给定的处理器上执行基本单元的时间使用极轻量线性回归模型来学习非线性模型。 |
-| Sniper: cloud-edge collaborative inference scheduling with neural network similarity modeling | DAC (2022)    | 开发了一种基于神经网络相似性（NNS）的非侵入性性能表征网络（PCN），以准确预测DNN的推理时间。 |                                                              |
+|                                                              |                 |                                                              |                                                              |
+| ------------------------------------------------------------ | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| FOX-NAS: Fast, On-device and Explainable Neural Architecture Search | ICCV(2021)      | 采用多变量回归分析作为预测器，比深度学习方法减少了时间和数据 | 采用多元回归来生成性能预测因子,与基于深度学习的方法相比，多元回归分析可以更好地理解每个变量对结果的影响，并以更少的数据创建有希望的预测器 |
+|                                                              |                 |                                                              |                                                              |
+| MAPLE: Microprocessor A Priori for Latency Estimation        | CVPR（2022）    | 微处理器先验延迟估计（MAPLE）                                | 提出了一个延迟预测技术，采用了一个紧凑的基于神经网络的非线性回归模型的延迟推理，通过测量10个关键性能指标，包括缓存效率，计算速率和指令数等来表示目标硬件。回归模型是硬件感知和DNN架构感知的，因为它接受硬件描述符和DNN架构编码作为输入。 |
+| MAPLE-Edge: A Runtime Latency Predictor for Edge Devices     | CVPR(2022)      | MAPLE针对嵌入式设备的改进版，提出了一种新的使用LPM算法优化边缘运行时间的延迟估计器。 | MAPLE-Edge是一种基于硬件回归模型的LPM方法，可以准确估计深度神经网络架构在看不见的嵌入式目标设备上的推理延迟。精度优于MAPLE和HELP |
+| CoDL: Efficient CPU-GPU Co-execution for Deep Learning Inference on Mobile Devices | MobiSys(2022)   | 提出轻量但精确的非线性和并发感知延迟预测。（在cpu和gpu上的精度分别为83.21%和82.69%） | 考虑cpu与gpu协同计算的数据共享开销，考虑由平台特征引起的非线性延迟响应，以数据大小和给定的处理器上执行基本单元的时间使用极轻量线性回归模型来学习非线性模型。 |
+| Sniper: cloud-edge collaborative inference scheduling with neural network similarity modeling | DAC (2022)      | 开发了一种基于神经网络相似性（NNS）的非侵入性性能表征网络（PCN），以准确预测DNN的推理时间。 |                                                              |
+| Runtime WCET Estimation Using Machine Learning               | mobicom（2023） | 使用多层感知器（MLP）神经网络的执行时间和作业序列数据。利用MLP𝜇𝑠将技术集成到系统中，优化资源分配和调度 |                                                              |
+| AdaptiveNet: Post-deployment Neural Architecture<br/>Adaptation for Diverse Edge Environments | mobicom（2023） | 关于边缘设备模型部署论文，提出一种方法，不在云设备上进行超网的剪枝等操作，而是直接在边缘设备上对超网进行修改得到合适的子网。提出一种基于重用的模型评估方法，该方法将中间特征缓存在候选模型中，以减少每次迭代中评估模型所需的时间。 | 提出预测器在边缘分布上可能不可靠，导致次优模型生成。         |
+
+|      |      |      |      |
+| ---- | ---- | ---- | ---- |
+|      |      |      |      |
+|      |      |      |      |
+|      |      |      |      |
+|      |      |      |      |
+|      |      |      |      |
+|      |      |      |      |
 
 ![15d8f9cc33e21625ceb9978a0b72352](一些图片/15d8f9cc33e21625ceb9978a0b72352.png)
 
@@ -375,25 +386,89 @@ MLP：测试结果
 
 ![网络结构图2](一些图片/网络结构图2.png)
 
-训练模型结构：
-
-GATConv的输入：节点特征、边集数组、边权重特征、延迟数据作为标签与模型预测的输出之间计算损失
-
-![image-20240125153722678](一些图片/image-20240125153722678.png)
+会议记录：超网络与子网络之间的关系可以有哪些，可能会影响跨平台预测的因素。考虑不同软件硬件中网络的不变性
 
 
 
+1.对超网络进行剪枝
+
+2.超网络算子操作的变化，改变边的连接方式，更改边权重
+
+3.节点个数的变化
+
+4.上述操作的排列组合
 
 
 
+![1706788295868](一些图片/1706788295868.png)
+
+ (1)基于查找表的方法
+
+| FBNet: Hardware-Aware Efficient ConvNet Design via Differentiable Neural Architecture Search | CVPR(2019) | 使用一个延迟查找表模型来估计网络的整体延迟 | 通过对搜索空间中使用的几百个运算符的延迟进行基准测试，我们可以很容易地估计整个搜索空间中1架构的实际运行时间(使用逐层预测器，其通过对模型中的每个操作单独测量的延迟求和来导出延迟) |
+| ------------------------------------------------------------ | ---------- | ------------------------------------------ | ------------------------------------------------------------ |
+| MnasNet: Platform-Aware Neural Architecture Search for Mobile | CVPR(2019) | 通过在边缘设备上直接执行模型测量延迟       | 我们引入了一种多目标神经架构搜索方法，该方法优化了移动的设备上的准确性和真实世界的延迟。 |
+| ChamNet: Towards Efﬁcient Network Design through Platform-Aware Model Adaptation | CVPR(2019) | 为目标设备构建一个LUT，实现快速延迟估计    | LUT由延迟数据库支持，在数据库中有不同输入维度的真实操作延迟（构建一个延迟查找表） |
+| ONCE-FOR-ALL: TRAIN ONE NETWORK AND SPECIALIZE IT FOR EFFICENT DEPLOYMENT | ICLR(2019) | 构建一个查找表预测延迟                     |                                                              |
+|                                                              |            |                                            |                                                              |
+
+(2)基于GNN的方法
+
+| BRP-NAS: Prediction-based NAS using GCNs                     | NeurIPS（2020） | 一种基于图卷积网络（GCN）的端到端延迟预测器                  | 使用4层GCN，每层有600个隐藏单元，后面是一个完全连接的层，它生成延迟的标量预测。GCN的输入神经网络模型由邻接矩阵A（不对称，因为计算流被表示为有向图）和特征矩阵X（独热编码）编码。我们还引入了一个全局节点（连接到所有其他节点的节点），通过聚合所有节点级信息来捕获神经架构的图嵌入。GCN可以处理任何一组神经网络模型[郑宁新/BRP-NAS (github.com)](https://github.com/zheng-ningxin/brp-nas#Device-measurement) |
+| ------------------------------------------------------------ | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| A Generic Graph-Based Neural Architecture Encoding Scheme for Predictor-Based NAS | ECCV(2020)      | 提出了GATES，一个基于图的神经架构编码器GATES显着提高了架构性能预测 | GATES模型的操作是传播信息的转换                              |
+|                                                              |                 |                                                              |                                                              |
+| Bridge the Gap Between Architecture Spaces via A Cross-Domain Predictor | NeurIPS（2022） | 出了一个跨域预测器（CDP），使用了GCN预测性能                 | 提出了一个渐进的子空间自适应策略，以解决源架构空间和目标空间之间的域差异。考虑到两种建筑空间差异较大，设计了一个辅助空间，使转换过程更加顺畅。 |
+| COBRA: ENHANCING DNN LATENCY PREDICTION WITH LANGUAGE MODELS TRAINED ON SOURCE CODE | ICLR(2022)      | 基于源代码的图神经网络延迟预测                               | 基于源代码的延迟预测利用一个Transformer编码器来学习短代码段的表示,表示由图卷积网络（GCN）聚合，该图卷积网络捕获算法依赖性并估计所实现的DNN的延迟. |
+|                                                              |                 |                                                              |                                                              |
+|                                                              |                 |                                                              |                                                              |
+
+(3).基于kernels的方法
+
+| nn-Meter: Towards Accurate Latency Prediction of Deep-Learning Model Inference on Diverse Edge Devices | MobiSys（2021） | 准确预测DNN模型在不同边缘设备上的推理延迟                    | nn-Meter的关键思想是将整个模型推理划分为内核，即，设备上的执行单元，并进行内核级预测。nn-Meter基于两个关键技术构建：（i）内核检测，通过一组设计良好的测试用例自动检测模型推理的执行单元;以及（ii）自适应采样，以从大空间中有效地采样最有益的配置，从而构建准确的内核级等待时间预测器。 |
+| ------------------------------------------------------------ | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| nnPerf: A Real-time On-device Tool Profiling DNN Inference on Mobile Platforms | SenSys （2023） | 实时的设备上分析器，旨在收集和分析移动平台上的DNN模型运行时推理延迟 |                                                              |
+| NN-Stretch: Automatic Neural Network Branching for Parallel<br/>Inference on Heterogeneous Multi-Processors | MobiSys（2023） | 提出一种新的模型自适应策略适应异构处理器，使用了nn-meter延迟预测器 |                                                              |
+
+（4）基于元学习的方法
+
+| HELP: Hardware-Adaptive Efﬁcient Latency Prediction for NAS via Meta-Learning | NeurIPS（2021） | 提出了硬件自适应有效延迟预测器（HELP） | 将延迟预测问题形式化为一个few-shot回归任务，即给定一个架构-设备对，估计其延迟，利用每个设备上参考架构的延迟作为参考，提出了一个元学习框架，将经验元学习与基于梯度的元学习相结合，以学习跨多个设备泛化的延迟预测模型。 |
+| ------------------------------------------------------------ | --------------- | -------------------------------------- | ------------------------------------------------------------ |
+|                                                              |                 |                                        |                                                              |
+|                                                              |                 |                                        |                                                              |
+
+（5）基于Transformer的方法
+
+| NAR-Former: Neural Architecture Representation Learning towards Holistic Attributes Prediction | CVPR(2023) | 通过Transformer架构和自注意力机制，实现对神经网络全面属性的预测 | 提出了一个有效的神经架构表示学习框架，该框架由线性缩放网络编码器，基于transformers的表示学习模型，以及一个有效的模型训练方法与数据增强和辅助损失函数组成。 |
+| ------------------------------------------------------------ | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|                                                              |            |                                                              |                                                              |
 
 
 
+（6）基于回归模型的方法
 
+|                                                              |                 |                                                              |                                                              |
+| ------------------------------------------------------------ | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| FOX-NAS: Fast, On-device and Explainable Neural Architecture Search | ICCV(2021)      | 采用多变量回归分析作为预测器，比深度学习方法减少了时间和数据 | 采用多元回归来生成性能预测因子,与基于深度学习的方法相比，多元回归分析可以更好地理解每个变量对结果的影响，并以更少的数据创建有希望的预测器 |
+|                                                              |                 |                                                              |                                                              |
+| MAPLE: Microprocessor A Priori for Latency Estimation        | CVPR（2022）    | 微处理器先验延迟估计（MAPLE）                                | 提出了一个延迟预测技术，采用了一个紧凑的基于神经网络的非线性回归模型的延迟推理，通过测量10个关键性能指标，包括缓存效率，计算速率和指令数等来表示目标硬件。回归模型是硬件感知和DNN架构感知的，因为它接受硬件描述符和DNN架构编码作为输入。 |
+| MAPLE-Edge: A Runtime Latency Predictor for Edge Devices     | CVPR(2022)      | MAPLE针对嵌入式设备的改进版，提出了一种新的使用LPM算法优化边缘运行时间的延迟估计器。 | MAPLE-Edge是一种基于硬件回归模型的LPM方法，可以准确估计深度神经网络架构在看不见的嵌入式目标设备上的推理延迟。精度优于MAPLE和HELP |
+| CoDL: Efficient CPU-GPU Co-execution for Deep Learning Inference on Mobile Devices | MobiSys(2022)   | 提出轻量但精确的非线性和并发感知延迟预测。（在cpu和gpu上的精度分别为83.21%和82.69%） | 考虑cpu与gpu协同计算的数据共享开销，考虑由平台特征引起的非线性延迟响应，以数据大小和给定的处理器上执行基本单元的时间使用极轻量线性回归模型来学习非线性模型。 |
+| Sniper: cloud-edge collaborative inference scheduling with neural network similarity modeling | DAC (2022)      | 开发了一种基于神经网络相似性（NNS）的非侵入性性能表征网络（PCN），以准确预测DNN的推理时间。 |                                                              |
+| Runtime WCET Estimation Using Machine Learning               | mobicom（2023） | 使用多层感知器（MLP）神经网络的执行时间和作业序列数据。利用MLP𝜇𝑠将技术集成到系统中，优化资源分配和调度 |                                                              |
+| AdaptiveNet: Post-deployment Neural Architecture<br/>Adaptation for Diverse Edge Environments | mobicom（2023） | 关于边缘设备模型部署论文，提出一种方法，不在云设备上进行超网的剪枝等操作，而是直接在边缘设备上对超网进行修改得到合适的子网。提出一种基于重用的模型评估方法，该方法将中间特征缓存在候选模型中，以减少每次迭代中评估模型所需的时间。 | 提出预测器在边缘分布上可能不可靠，导致次优模型生成。         |
 
+延时预测器论文总结：
 
+方向一：着重点在于制作延迟预测器。
 
+ （1）最初是的FBNet、ChamNet等论文使用查找表的方式，nn-meter则是基于kernels基础上使用查找表
 
+ （2）使用基于模型的方法，用黑盒的方式预测延迟，比如BRP-NAS、GATES、CDP一系列使用GNN的方式，FOX-NAS、MAPLE、MAPLE-Edge等使用其他回归网络的方式
 
+方向二：在一个系统中使用延迟预测器（找到最佳结构或者利用延迟进行其他研究）
 
+ （1）在CoDL中，考虑cpu与gpu协同计算的数据共享开销和平台特征引起的非线性延迟响应。
 
+ （2）Runtime WCET Estimation Using Machine Learning文章结合神经网络的执行时间和作业序列数据使用多层感知器（MLP）预测延迟。利用MLP𝜇𝑠将技术集成到系统中，优化资源分配和调度。
+
+ （3）AdaptiveNet中提出了一种基于重用的模型评估方法，该方法将中间特征缓存在候选模型中，以减少每次迭代中评估模型所需的时间。
