@@ -452,5 +452,55 @@ MLP：测试结果
 
 
 
+3.19
+
 根据给定的超网和目标延迟直接输出由超网产生的子网
+
+1.网络结构如何构建为Transformer输入的序列 编码和解码方式
+
+找到了一篇使用Transformer和GNN结合的进行延迟和精度预测的论文
+
+论文：NAR-Former V2: Rethinking Transformer for Universal Neural Network Representation Learning（2023 ）
+
+论文中将原本输入Transformer的特征结合了GNN输入的方式，让Transformer输入的序列中融合了图的信息。
+
+2.如果告诉gpt网络结构要求输出相应延迟的网络，我们的贡献体现在什么方面？
+
+3.训练一个直接输出网络结构的模型，数据集要如何构建
+
+
+
+
+
+3.26
+
+输入文字输出图像
+
+论文：Hierarchical Text-Conditional Image Generation with CLIP Latents
+
+![{EFE83952-293F-4df3-BE2D-3CC8AED6302A}](一些图片/{EFE83952-293F-4df3-BE2D-3CC8AED6302A}.png)
+
+# Parti:
+
+![微信图片_20240326121342](一些图片/微信图片_20240326121342.png)
+
+
+
+![总体模型结构](一些图片/总体模型结构.png)
+
+大预言模型微调策略：
+
+txt：要求的模型在某个硬件的延迟
+
+特征：模型结构encode之后对应的序列
+
+
+
+
+
+
+
+
+
+
 
