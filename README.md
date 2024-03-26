@@ -484,15 +484,19 @@ MLP：测试结果
 
 ![微信图片_20240326121342](一些图片/微信图片_20240326121342.png)
 
+论文：NAR-Former V2: Rethinking Transformer for Universal Neural Network Representation Learning（2023 ）
+
+![gnn编码送入ansformer](一些图片/gnn编码送入ansformer.png)
+
 
 
 ![总体模型结构](一些图片/总体模型结构.png)
 
-大预言模型微调策略：
+大模型微调策略：
 
-txt：要求的模型在某个硬件的延迟
+输入txt：要求的模型在某个硬件的延迟
 
-特征：模型结构encode之后对应的序列
+输出特征：模型结构encode之后对应的序列
 
 
 
