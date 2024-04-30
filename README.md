@@ -524,7 +524,7 @@ NAS的定义：寻找最优的神经网络结构，使得验证集准确率最�
 
 BRP-NAS:使用延迟预测器的GCN部分，输入两个模型，判别哪一个模型精度更高。
 
-NAS的流程：1.搜索空间 神经网络的超参数、
+NAS的流程：1.搜索空间 神经网络的超参数
 
 ​                       2.搜索策略 
 
@@ -592,5 +592,159 @@ Differentiable NAS：利用梯度信息来指导搜索过程，以寻找最优�
 
 
 
+总体步骤：
 
+1.复现性能预测器，直接用他们的数据集
+
+2.根据性能预测器中的数据集，拟定输入大模型的模型结构编码方式
+
+T =（t1，t2，· · ·，tN）∈ RN×C。每个向量封装操作和位置信息：ti =（top i，tpos i）∈ RC。
+
+论文：ONE FOR ALL: TOWARDS TRAINING ONE GRAPH MODEL FOR ALL CLASSIFICATION TASKS
+
+提出了文本属性图，通过用自然语言描述节点和边来统一不同的图数据，并使用语言模型将不同的和可能跨域的文本属性编码为同一嵌入空间中的特征向量。
+
+
+
+**4.9**
+
+1.onnx模型通过encoder转化为节点特征、边集特征、静态特征（模型参数特征，batch_size\flops等参数）
+
+
+
+一个onnx模型Encoder之后的结果：
+
+Data(x=[21, 152], edge_index=[2, 40], y=[1]) tensor([8.4147e-01, 5.4030e-01, 1.5783e-01, 9.8747e-01, 2.5116e-02, 9.9968e-01,
+
+​    3.9811e-03, 9.9999e-01, 6.3096e-04, 1.0000e+00, 9.7766e-01, 2.1020e-01,
+
+​    2.1373e-01, 9.7689e-01, 3.4130e-02, 9.9942e-01, 5.4103e-03, 9.9999e-01,
+
+​    8.5748e-04, 1.0000e+00, 8.2304e-02, 9.9661e-01, 1.3059e-02, 9.9991e-01,
+
+​    2.0697e-03, 1.0000e+00, 3.2803e-04, 1.0000e+00, 5.1989e-05, 1.0000e+00,
+
+​    8.3222e-02, 9.9653e-01, 1.3205e-02, 9.9991e-01, 2.0929e-03, 1.0000e+00,
+
+​    3.13170e-04, 1.0000e+00, 5.2570e-05, 1.0000e+00])
+
+
+
+LLM选择：[Qwen/README_CN.md at main · QwenLM/Qwen (github.com)](https://github.com/QwenLM/Qwen/blob/main/README_CN.md)
+
+数据集微调格式：
+
+```
+[
+  {
+    "id": "identity_0",
+    "conversations": [
+      {
+        "from": "usr",
+        "value": "A network structure with an output delay of 10ms and an accuracy of 0.8"
+      },
+      {
+        "from": "assistant",
+        "value": "Data(x=[21, 152], edge_index=[2, 40], y=[1])，fs"
+      }
+    ]
+  }
+]
+```
+
+2.decoder：将onnx模型重构出来
+
+​    根据图特征反向重构onnx模型工作量太大。
+
+​    根据LLM的输出序列的特征重构成onnx模型难度太大
+
+
+
+
+
+4.16
+
+已经实现：
+
+1.通过读取onnx模型获取每一个节点信息
+
+2.根据读取的节点信息转化成大模型训练的数据集格式（还需要微调）
+
+3.大模型QWEN本地训练环境目前可以跑7B的模型
+
+遇到的问题：
+
+1.在不做修改的情况下大模型的输出是文本，如何处理成我们需要的模型输出
+
+2.可以用的服务器（A5000）集群（A100）,集群的环境搭建需要使用docker，目前以及在本地运行成功需要把环境打包成docker
+
+0.5B  1.5B  7B  15B  72B
+
+
+
+解决问题1的思路：
+
+1.继续使用原先的思路继续微调训练，查看输出格式是否能处理
+
+备选方案2.可以使用大模型可以输出代码的能力，让模型输出py文件，运行这个文件来生成代码
+
+
+
+
+
+4.18小会：
+
+
+
+![1713439479113](一些图片/1713439479113-1713439507137-3.png)
+
+4.22
+
+0.5B的模型训练中loss不收敛
+
+14B模型训练：
+
+![005578e6ad2f60bdd59fe1181c88d3d](一些图片/005578e6ad2f60bdd59fe1181c88d3d.png)
+
+
+
+![微信图片_20240418190919](一些图片/微信图片_20240418190919.png)
+
+loss降低到0是 LOSS降低到0的原因是数据集有BUG
+
+14B的模型训练一个epoch的输出：
+
+自动输入 generate a pytorch model whose latency is 1.01264ms
+{'op_type': 'Conv', 'input': ['data', 'learned_0', 'learned_1'], 'output': ['17'], 'attribute': [['name: "dilations"', 'ints: 1', 'ints: 1', 'type: INTS'], ['name: "group"', 'i: 1', 'type: INT'], ['name: "kernel_shape"', 'ints: 3', 'ints: 3', 'type: INTS'], ['name: "pads"', 'ints: 0', 'ints: 0', 'ints: 0', 'ints: 0', 'type: INTS'], ['name: "strides"', 'ints: 4', 'ints: 4', 'type: INTS']]}
+{'op_type': 'Relu', 'input': ['17'], 'output': ['18']}
+{'op_type': 'MaxPool', 'input': ['18'], 'output': ['19'], 'attribute': [['name: "kernel_shape"', 'ints: 3', 'ints: 3', 'type: INTS'], ['name: "pads"', 'ints: 0', 'ints: 0', 'ints: 0', 'ints: 0', 'type: INTS'], ['name: "strides"', 'ints: 2', 'ints: 2', 'type: INTS']]}
+{'op_type': 'Conv', 'input': ['19', 'learned_2', 'learned_3'], 'output': ['20'], 'attribute': [['name: "dilations"', 'ints: 1', 'ints: 1', 'type: INTS'], ['name: "group"', 'i: 1', 'type: INT'], ['name: "kernel_shape"', 'ints: 5', 'ints: 5', 'type: INTS'], ['name: "pads"', 'ints: 2', 'ints: 2', 'ints: 2', 'ints: 2', 'type: INTS'], ['name: "strides"', 'ints: 1', 'ints: 1', 'type: INTS']]}
+{'op_type': 'Relu', 'input': ['20'], 'output': ['21']}
+{'op_type': 'MaxPool', 'input': ['21'], 'output': ['22
+
+自动输入 generate a pytorch model whose latency is 0.541235ms
+{'op_type': 'Conv', 'input': ['data', 'stem.net.0.weight', 'stem.net.0.bias'], 'output': ['375'], 'attribute': [['name: "dilations"', 'ints: 1', 'ints: 1', 'type: INTS'], ['name: "group"', 'i: 1', 'type: INT'], ['name: "kernel_shape"', 'ints: 3', 'ints: 3', 'type: INTS'], ['name: "pads"', 'ints: 1', 'ints: 1', 'ints: 1', 'ints: 1', 'type: INTS'], ['name: "strides"', 'ints: 1', 'ints: 1', 'type: INTS']]}
+{'op_type': 'Relu', 'input': ['375'], 'output': ['376']}
+{'op_type': 'Conv', 'input': ['376', 'stack_cell1.0.options.8.op.1.weight', 'stack_cell1.0.options.8.op.1.bias'], 'output': ['377'], 'attribute': [['name: "dilations"', 'ints: 1', 'ints: 1', 'type: INTS'], ['name: "group"', 'i: 1', 'type: INT'], ['name: "kernel_shape"', 'ints: 1', 'ints: 1', 'type: INTS'], ['name: "pads"', 'ints: 0', 'ints: 0', 'ints: 0', 'ints: 0', 'type: INTS'], ['name: "strides"', 'ints: 1', 'ints: 1', 'type: INTS']]}
+{'op_type': 'AveragePool', 'input': ['375'], 'output': ['378'], 'attribute': [['name: "ceil_mode"', 'i: 0', 'type: INT'], ['name: "kernel_shape"', 'ints: 3', 'ints: 3', 'type: INTS'], ['name: "pads"', 'ints: 1', 'ints: 1', 'ints: 1', 'ints: 1', 'type: INTS'], ['name: "strides"', 'ints: 1', 'ints: 1', 'type: INTS']]}
+
+将输出转化为onnx模型之后放入nar检测延迟，单个手动版本
+
+![f4ba576cce014b55767f484f6c72eb7](一些图片/f4ba576cce014b55767f484f6c72eb7.png)
+
+后续工作：
+
+1.优化数据集，限制输入输出格式
+
+2.输出的模型结构数据数据转化为onnx模型（模型转化为）
+
+3.验证模型性能
+
+
+
+
+
+
+
+4.loss中加入精度以及延迟的权重
 
